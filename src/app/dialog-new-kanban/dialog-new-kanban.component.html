@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Create new Kanban Channel</h1>
+<form (ngSubmit)="saveKanban()">
+    <div mat-dialog-content>
+        <div>
+            <mat-form-field>
+                <mat-label>Enter Name</mat-label>
+                <input matInput placeholder="Eric´s Kanban" type="text" [formControl]="kanban" required>
+                <mat-error *ngIf="kanban.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" mat-button>Save</button>
+        <button type="button" mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    </div>
+</form>

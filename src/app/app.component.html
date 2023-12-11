@@ -4,21 +4,22 @@
     </button>
     <span>Welcome, ,to Phil´s Kanban System</span>
     <span class="header-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon">
+    <button mat-icon-button class="example-icon favorite-icon" [class.red]="activateHeart" (click)="toggleHeart()">
         <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon">
-        <mat-icon>share</mat-icon>
     </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened">
-        <p>Available Kanban´s</p>
-        <button mat-button (click)="openKanban()">Phil´s Kanban</button>
+        <div class="sidenav-column">
+            <p>Available Kanban´s</p>
+            <button mat-icon-button matTooltip="Basic" (click)="openDialogNewKanban()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button (click)="openKanban()">Phil´s Kanban</button>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        Main content
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create new Task</h1>
+<form (ngSubmit)="saveTask()">
+    <div mat-dialog-content>
+        <div>
+            <mat-form-field>
+                <mat-label>Enter Task</mat-label>
+                <input matInput placeholder="call grandma" type="text" [formControl]="task" required>
+                <mat-error *ngIf="task.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>For who</mat-label>
+                <input matInput placeholder="Enrico" type="text" [formControl]="name" required>
+                <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" mat-button>Save</button>
+        <button type="button" mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    </div>
+</form>

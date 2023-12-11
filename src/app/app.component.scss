@@ -2,6 +2,10 @@
     flex: 1 1 auto;
   }
 
+  .red {
+    color: red;
+  }
+
   .sidenav-container {
     width: 100vw;
     height: 100%;
@@ -10,8 +14,15 @@
       padding: 25px;
     }
 
+    .sidenav-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     mat-sidenav-content {
       padding: 25px;
+      
     }
   }
   

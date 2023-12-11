@@ -1,1 +1,70 @@
-<p>kanban-board works!</p>
+<main class="board-overview" cdkDropListGroup>
+    <div>
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>To Do</mat-card-title>
+            </mat-card-header>
+
+            <div cdkDropList [cdkDropListData]="todo" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of todo; let track item" class="task-box" cdkDrag>
+                    <span><b>{{item}}</b></span>
+                    <span>from : </span>
+                    <span>for :</span>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>In Progress</mat-card-title>
+            </mat-card-header>
+
+            <div cdkDropList [cdkDropListData]="inProgress" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of inProgress;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item}}</b></span>
+                    <span>from : </span>
+                    <span>for :</span>
+                </div>
+            </div>
+
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>Testing</mat-card-title>
+            </mat-card-header>
+
+            <div cdkDropList [cdkDropListData]="testing" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of testing;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item}}</b></span>
+                    <span>from : </span>
+                    <span>for :</span>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>Done</mat-card-title>
+            </mat-card-header>
+
+            <div cdkDropList [cdkDropListData]="done" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of done;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item}}</b></span>
+                    <span>from : </span>
+                    <span>for :</span>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="fab-container">
+        <button mat-fab color="primary" (click)="openDialogNewTask()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</main>
+
