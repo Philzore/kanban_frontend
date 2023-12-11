@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'kanban_frontend';
+  opened: boolean;
+
+  constructor(private router: Router) {}
+
+  openKanban() {
+    this.router.navigateByUrl('board');
+  }
 }

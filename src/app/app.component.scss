@@ -1,0 +1,17 @@
+.header-spacer {
+    flex: 1 1 auto;
+  }
+
+  .sidenav-container {
+    width: 100vw;
+    height: 100%;
+
+    mat-sidenav {
+      padding: 25px;
+    }
+
+    mat-sidenav-content {
+      padding: 25px;
+    }
+  }
+  
