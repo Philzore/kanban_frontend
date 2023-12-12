@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BackendService } from '../services/backend-service';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +11,12 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username = new FormControl('', [Validators.required]);
   userPassword = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required]);
-  firstName = new FormControl('', [Validators.required]);
-  lastName = new FormControl('', [Validators.required]);
-
-
-  constructor(private router: Router) {}
+  
+  
+  constructor(
+    private router: Router,
+    private backendService: BackendService,
+    ) {}
 
   getErrorMessage() {
     if (this.username.hasError('required')) {
@@ -33,8 +34,16 @@ export class LoginComponent {
   }
 
 
-  login() {
-
+  async login() {
+    try {
+      let resp:any = await this.backendService.loginWithUsernameAndPassword(this.username.value, this.userPassword.value);
+      localStorage.setItem('token', resp['token']);
+      this.backendService.currentUser = resp.name ;
+      this.backendService.loadKanbanChannels();
+      this.router.navigateByUrl('/board');
+    } catch(err) {
+      console.log('error :' , err) ;
+    }
   }
 
 }

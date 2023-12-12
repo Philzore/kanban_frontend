@@ -1,0 +1,55 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BackendService {
+  kanbanChannels: any = [];
+  currentUser = '' ;
+
+  constructor(
+    private http: HttpClient,
+
+  ) { }
+
+  loginWithUsernameAndPassword(username:string, password:string) {
+    const url = environment.baseUrl + "/login/" ;
+    const body = {
+      "username": username,
+      "password": password
+    } ;
+    return lastValueFrom(this.http.post(url, body)) ;
+  }
+
+  registerNewUser(username:string, password:string, email:string, firstName:string, lastName:string) {
+    const url = environment.baseUrl + "/register/" ;
+    const body = {
+      "username": username,
+      "password": password,
+      "email" : email,
+      "firstName" : firstName,
+      "lastName" : lastName,
+    } ;
+    return lastValueFrom(this.http.post(url, body)) ;
+  }
+
+  async loadKanbanChannels() {
+    const url = environment.baseUrl + "/board/" ;
+    try {
+      this.kanbanChannels = await lastValueFrom(this.http.get(url));;
+    } catch (error) {
+      console.log('Fehler laden Channels', error);
+    }
+  }
+
+  addKanbanChannel(channelName:string) {
+    const url = environment.baseUrl + "/board/create_channel";
+    const body = {
+      "title" : channelName,
+    };
+    return lastValueFrom(this.http.post(url,body));
+  }
+}

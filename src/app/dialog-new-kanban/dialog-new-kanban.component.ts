@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { BackendService } from '../services/backend-service';
 
 @Component({
   selector: 'app-dialog-new-kanban',
@@ -11,7 +12,9 @@ export class DialogNewKanbanComponent {
   
   testArray = [];
 
-  constructor() { }
+  constructor(
+    private backendService: BackendService,
+  ) { }
 
   getErrorMessage() {
     if (this.kanban.hasError('required')) {
@@ -20,7 +23,13 @@ export class DialogNewKanbanComponent {
     return ''
   }
 
-  saveKanban() {
+  async saveKanban() {
+    try {
+      let resp:any = await this.backendService.addKanbanChannel(this.kanban.value);
+      console.log(resp);
+    } catch (error) {
+      console.log('Error when create new Channel', error);
+    }
   
   }
 }

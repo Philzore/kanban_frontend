@@ -9,37 +9,37 @@
                 <div class="row">
                     <mat-form-field>
                         <mat-label>User Name</mat-label>
-                        <input matInput placeholder="call grandma" type="text" [formControl]="username" required>
+                        <input matInput placeholder="tmueller" type="text" [formControl]="username" required>
                         <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field> 
                     <mat-form-field>
                         <mat-label>Email</mat-label>
-                        <input matInput placeholder="pat@example.com" type="email" [formControl]="username" required>
-                        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+                        <input matInput placeholder="pat@example.com" type="email" [formControl]="email" required>
+                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field> 
                 </div>
                 <div class="row">
                     <mat-form-field>
                         <mat-label>First Name</mat-label>
-                        <input matInput placeholder="Thomas" type="text" [formControl]="userPassword" required>
-                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+                        <input matInput placeholder="Thomas" type="text" [formControl]="firstName" required>
+                        <mat-error *ngIf="firstName.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Müller" type="text" [formControl]="userPassword" required>
-                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+                        <input matInput placeholder="Müller" type="text" [formControl]="lastName" required>
+                        <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field>
                         <mat-label>Password</mat-label>
-                        <input matInput placeholder="Müller" type="password" [formControl]="userPassword" required>
+                        <input matInput placeholder="*****" type="password" [formControl]="userPassword" required>
                         <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Confirm password</mat-label>
-                        <input matInput placeholder="Müller" type="password" [formControl]="userPassword" required>
-                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+                        <input matInput placeholder="*****" type="password" [formControl]="confirmPassword" required>
+                        <mat-error *ngIf="confirmPassword.invalid">Passwords are not the same</mat-error>
                     </mat-form-field>
                 </div>
             </div>
