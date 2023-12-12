@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DialogNewKanbanComponent } from './dialog-new-kanban/dialog-new-kanban.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DialogNewKanbanComponent } from './dialog-new-kanban/dialog-new-kanban.
     RegisterComponent,
     KanbanBoardComponent,
     DialogNewTaskComponent,
-    DialogNewKanbanComponent
+    DialogNewKanbanComponent,
+    TaskDetailComponent
   ],
   imports: [
     BrowserModule,

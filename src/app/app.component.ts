@@ -17,12 +17,21 @@ export class AppComponent {
     private dialog: MatDialog,
   ) { }
 
-  openKanban() {
-    this.router.navigateByUrl('board');
+  openKanban(channelId) {
+    this.router.navigate(['/board',channelId]);
+    // this.router.navigateByUrl('board');
   }
 
   openDialogNewKanban() {
-    this.dialog.open(DialogNewKanbanComponent);
+    
+
+    this.router.navigate(['/board/create_channel']).then(() => {
+      const dialogRef =  this.dialog.open(DialogNewKanbanComponent);
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigate(['/board']);
+      });
+    });
   }
 
   toggleHeart() {

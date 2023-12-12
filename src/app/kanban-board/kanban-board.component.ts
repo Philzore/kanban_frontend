@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewTaskComponent } from '../dialog-new-task/dialog-new-task.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kanban-board',
@@ -17,7 +18,10 @@ export class KanbanBoardComponent {
 
   done = ['einkaufen'];
 
-  constructor(public dialog:MatDialog) { }
+  constructor(
+    public dialog:MatDialog,
+    public router: Router,
+    ) { }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -33,6 +37,12 @@ export class KanbanBoardComponent {
   }
 
   openDialogNewTask() {
-    this.dialog.open(DialogNewTaskComponent);
+    this.router.navigate(['/board/1/add_task']).then(() => {
+      const dialogRef =  this.dialog.open(DialogNewTaskComponent);
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigate(['/board/1']);
+      });
+    });
   }
 }
