@@ -2,7 +2,8 @@
     <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
-    <span *ngIf="backendService.currentUser != ''">Welcome {{ backendService.currentUser }} ,to Phil´s Kanban System</span>
+    <span *ngIf="backendService.currentUser != ''">Welcome {{ backendService.currentUser }} ,to Phil´s Kanban
+        System</span>
     <span *ngIf="backendService.currentUser == ''">Please Log in to enter the experience</span>
     <span class="header-spacer"></span>
     <button mat-icon-button class="example-icon favorite-icon" [class.red]="activateHeart" (click)="toggleHeart()">
@@ -20,7 +21,13 @@
             <button mat-icon-button matTooltip="Basic" (click)="openDialogNewKanban()">
                 <mat-icon>add</mat-icon>
             </button>
-            <button *ngFor="let channel of backendService.kanbanChannels" mat-button (click)="openKanban(channel.id)">{{ channel.title }}</button>
+            <div *ngFor="let channel of backendService.kanbanChannels" class="single-channel">
+                <button  mat-button
+                    (click)="openKanban(channel.id)">{{ channel.title }}</button>
+                <button mat-icon-button matTooltip="Basic" (click)="deleteChannel(channel.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
@@ -13,7 +13,11 @@ export class BackendService {
   constructor(
     private http: HttpClient,
 
-  ) { }
+  ) {
+    this.loadKanbanChannels();
+  }
+
+  
 
   loginWithUsernameAndPassword(username:string, password:string) {
     const url = environment.baseUrl + "/login/" ;
@@ -39,16 +43,25 @@ export class BackendService {
   async loadKanbanChannels() {
     const url = environment.baseUrl + "/board/" ;
     try {
-      this.kanbanChannels = await lastValueFrom(this.http.get(url));;
+      this.kanbanChannels = await lastValueFrom(this.http.get(url));
     } catch (error) {
       console.log('Fehler laden Channels', error);
     }
   }
 
   addKanbanChannel(channelName:string) {
-    const url = environment.baseUrl + "/board/create_channel";
+    const url = environment.baseUrl + "/board/create_channel/";
     const body = {
       "title" : channelName,
+    };
+    return lastValueFrom(this.http.post(url,body));
+  }
+
+  addTask(taskName:string, assignedTo:string, channelId){
+    const url = environment.baseUrl + `/board/${channelId}/`;
+    const body = {
+      "name" : taskName,
+      "assigned" : assignedTo,
     };
     return lastValueFrom(this.http.post(url,body));
   }

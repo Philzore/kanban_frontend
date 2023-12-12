@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Task } from '../models/task.class';
+import { BackendService } from '../services/backend-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-new-task',
@@ -15,7 +17,11 @@ export class DialogNewTaskComponent {
 
   testArray = [];
 
-  constructor(public dialogRef: MatDialogRef<DialogNewTaskComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogNewTaskComponent>,
+    private backendService: BackendService,
+    private route: ActivatedRoute,
+    ) { }
 
   getErrorMessage() {
     if (this.task.hasError('required')) {
@@ -28,12 +34,15 @@ export class DialogNewTaskComponent {
     return ''
   }
 
-  saveTask() {
-    let task = new Task();
-    task.task = this.task.getRawValue();
-    task.for = this.name.getRawValue() ;
-
-    this.testArray.push(task);
+  async saveTask() {
+    const channelId = this.route.snapshot.paramMap.get('channelId');
+    debugger;
+    try {
+      let resp:any = await this.backendService.addTask(this.task.value, this.name.value, channelId);
+      
+    } catch (error) {
+      console.log('Error when create new Channel', error);
+    }
 
     console.log(this.testArray);
   }

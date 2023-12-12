@@ -51,4 +51,8 @@ export class AppComponent implements OnInit {
     localStorage.clear();
     this.backendService.currentUser = '' ;
   }
+
+  deleteChannel(channelId) {
+    
+  }
 }

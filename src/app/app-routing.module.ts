@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'board' , component: KanbanBoardComponent, children : [{path : 'create_channel', component: DialogNewKanbanComponent}]},
   {path: 'board/:channelId' , component: KanbanBoardComponent , children : [{path : 'add_task', component: DialogNewTaskComponent}]},
   {path: 'board/:channelId/task/:taskId' , component: TaskDetailComponent},
+
 ];
 
 @NgModule({

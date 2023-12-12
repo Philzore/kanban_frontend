@@ -26,7 +26,7 @@ export class DialogNewKanbanComponent {
   async saveKanban() {
     try {
       let resp:any = await this.backendService.addKanbanChannel(this.kanban.value);
-      console.log(resp);
+      this.backendService.kanbanChannels = resp;
     } catch (error) {
       console.log('Error when create new Channel', error);
     }
