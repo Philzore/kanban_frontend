@@ -9,7 +9,11 @@ import { environment } from 'src/environments/environment.development';
 export class BackendService {
   kanbanChannels: any = [];
   currentUser = '' ;
-
+  todo =[];
+  inProgress = [];
+  testing = [];
+  done = [];
+  
   constructor(
     private http: HttpClient,
 
@@ -17,7 +21,14 @@ export class BackendService {
     this.loadKanbanChannels();
   }
 
-  
+  checkTokenInStorage(){
+    let token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    } else {
+      return false ;
+    }
+  }
 
   loginWithUsernameAndPassword(username:string, password:string) {
     const url = environment.baseUrl + "/login/" ;
@@ -58,11 +69,22 @@ export class BackendService {
   }
 
   addTask(taskName:string, assignedTo:string, channelId){
-    const url = environment.baseUrl + `/board/${channelId}/`;
+    const url = environment.baseUrl + `/board/${channelId}/add_task/`;
+    
     const body = {
       "name" : taskName,
       "assigned" : assignedTo,
     };
     return lastValueFrom(this.http.post(url,body));
+  }
+
+  getTasksFromSingleChannel(channelId) {
+    const url = environment.baseUrl + `/board/${channelId}/`;
+
+    return lastValueFrom(this.http.get(url));
+  }
+
+  saveTaskStates() {
+
   }
 }

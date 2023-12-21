@@ -5,11 +5,11 @@
                 <mat-card-title>To Do</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="todo" class="task-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of todo; let track item" class="task-box" cdkDrag>
-                    <span><b>{{item}}</b></span>
-                    <span>from : </span>
-                    <span>for :</span>
+            <div cdkDropList [cdkDropListData]="backendService.todo" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of backendService.todo; let track item" class="task-box" cdkDrag>
+                    <span><b>{{item.title}}</b></span>
+                    <span>from : {{ item.author }}</span>
+                    <span>for : {{ item.assigned_to }}</span>
                 </div>
             </div>
         </mat-card>
@@ -20,11 +20,11 @@
                 <mat-card-title>In Progress</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="inProgress" class="task-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of inProgress;let track item" class="task-box" cdkDrag>
-                    <span><b>{{item}}</b></span>
-                    <span>from : </span>
-                    <span>for :</span>
+            <div cdkDropList [cdkDropListData]="backendService.inProgress" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of backendService.inProgress;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item.title}}</b></span>
+                    <span>from : {{ item.author }}</span>
+                    <span>for : {{ item.assigned_to }}</span>
                 </div>
             </div>
 
@@ -36,11 +36,11 @@
                 <mat-card-title>Testing</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="testing" class="task-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of testing;let track item" class="task-box" cdkDrag>
-                    <span><b>{{item}}</b></span>
-                    <span>from : </span>
-                    <span>for :</span>
+            <div cdkDropList [cdkDropListData]="backendService.testing" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of backendService.testing;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item.title}}</b></span>
+                    <span>from : {{ item.author }}</span>
+                    <span>for : {{ item.assigned_to }}</span>
                 </div>
             </div>
         </mat-card>
@@ -51,17 +51,20 @@
                 <mat-card-title>Done</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="done" class="task-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let item of done;let track item" class="task-box" cdkDrag>
-                    <span><b>{{item}}</b></span>
-                    <span>from : </span>
-                    <span>for :</span>
+            <div cdkDropList [cdkDropListData]="backendService.done" class="task-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let item of backendService.done;let track item" class="task-box" cdkDrag>
+                    <span><b>{{item.title}}</b></span>
+                    <span>from : {{ item.author }}</span>
+                    <span>for : {{ item.assigned_to }}</span>
                 </div>
             </div>
         </mat-card>
     </div>
 
     <div class="fab-container">
+        <button mat-fab color="primary" (click)="backendService.saveTaskStates()">
+            <mat-icon>save</mat-icon>
+        </button>
         <button mat-fab color="primary" (click)="openDialogNewTask()">
             <mat-icon>add</mat-icon>
         </button>

@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorServiceService {
+export class AuthInterceptorServiceService implements HttpInterceptor{
 
   constructor(private router: Router) { }
 

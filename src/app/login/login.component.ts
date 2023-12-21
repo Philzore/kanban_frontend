@@ -11,12 +11,13 @@ import { BackendService } from '../services/backend-service';
 export class LoginComponent {
   username = new FormControl('', [Validators.required]);
   userPassword = new FormControl('', [Validators.required]);
-  
-  
+  loginInProgress = false;
+  errorLogin = false;
+
   constructor(
     private router: Router,
     private backendService: BackendService,
-    ) {}
+  ) { }
 
   getErrorMessage() {
     if (this.username.hasError('required')) {
@@ -35,15 +36,22 @@ export class LoginComponent {
 
 
   async login() {
+    this.loginInProgress = true;
     try {
-      let resp:any = await this.backendService.loginWithUsernameAndPassword(this.username.value, this.userPassword.value);
-      localStorage.setItem('token', resp['token']);
-      this.backendService.currentUser = resp.name ;
-      this.backendService.loadKanbanChannels();
-      this.router.navigateByUrl('/board');
-    } catch(err) {
-      console.log('error :' , err) ;
+      let resp: any = await this.backendService.loginWithUsernameAndPassword(this.username.value, this.userPassword.value);
+      if (resp.success == false) {
+        this.errorLogin = true;
+      } else {
+        localStorage.setItem('token', resp['token']);
+        console.log(resp);
+        this.backendService.currentUser = resp.name;
+        this.backendService.loadKanbanChannels();
+        this.router.navigateByUrl('/board');
+      }
+    } catch (err) {
+      console.log('error :', err);
     }
+    this.loginInProgress = false;
   }
 
 }

@@ -24,6 +24,7 @@ import { DialogNewKanbanComponent } from './dialog-new-kanban/dialog-new-kanban.
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorServiceService } from './services/auth-interceptor.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AuthInterceptorServiceService } from './services/auth-interceptor.servi
     ReactiveFormsModule,
     MatInputModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

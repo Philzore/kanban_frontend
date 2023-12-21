@@ -15,9 +15,11 @@
 }
 
 .fab-container {
+    display: flex;
     position: absolute;
     bottom: 130px;
     right: 20px;
+    gap: 15px;
 }
 
 //******************************************

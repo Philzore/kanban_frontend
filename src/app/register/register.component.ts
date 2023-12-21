@@ -16,6 +16,8 @@ export class RegisterComponent {
   firstName = new FormControl('', [Validators.required]);
   lastName = new FormControl('', [Validators.required]);
 
+  errorRegister = false ;
+  registerInProgress = false ;
 
   constructor(private router: Router, private backendService: BackendService,) { }
 
@@ -35,14 +37,22 @@ export class RegisterComponent {
   }
 
   async register() {
+    this.registerInProgress = true ;
     if (this.checkPassword()) {
       try {
         let resp: any = await this.backendService.registerNewUser(this.username.value, this.userPassword.value, this.email.value, this.firstName.value, this.lastName.value);
-        this.router.navigateByUrl('/');
+        console.log(resp);
+        if (resp.success == true) {
+          this.router.navigateByUrl('/');
+        } else if (resp.success == false) {
+          this.errorRegister = true ;
+        }
+        
       } catch (err) {
         console.log('error :', err);
       }
     }
+    this.registerInProgress = false ;
   }
 
   checkPassword() {

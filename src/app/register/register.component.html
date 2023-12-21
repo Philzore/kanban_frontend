@@ -43,8 +43,10 @@
                     </mat-form-field>
                 </div>
             </div>
+            <span *ngIf="errorRegister" class="error"><b>User already exist!</b></span>
             <mat-card-actions>
-                <button type="submit" mat-button>Create</button>
+                <button *ngIf="!registerInProgress" type="submit" mat-button>Create</button>
+                <mat-spinner *ngIf="registerInProgress" class="spinner"></mat-spinner>
                 <button type="button" mat-button cdkFocusInitial (click)="openLogin()">Go Back</button>
             </mat-card-actions>
         </form>

@@ -20,8 +20,10 @@
                         <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                 </div>
+                <span class="error" *ngIf="errorLogin"><b>Login failed! Try again</b></span>
                 <mat-card-actions>
-                    <button type="submit" mat-button>Log In</button>
+                    <button *ngIf="!loginInProgress" type="submit" mat-button>Log In</button>
+                    <mat-spinner *ngIf="loginInProgress" class="spinner"></mat-spinner>
                     <button type="button" mat-button cdkFocusInitial (click)="openRegister()">Sign Up</button>
                 </mat-card-actions>
             </div>
