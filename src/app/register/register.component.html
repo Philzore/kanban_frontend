@@ -10,40 +10,41 @@
                     <mat-form-field>
                         <mat-label>User Name</mat-label>
                         <input matInput placeholder="tmueller" type="text" [formControl]="username" required>
-                        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="username.invalid">{{getErrorMessage('username')}}</mat-error>
                     </mat-form-field> 
                     <mat-form-field>
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="pat@example.com" type="email" [formControl]="email" required>
-                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="email.invalid">{{getErrorMessage('email')}}</mat-error>
                     </mat-form-field> 
                 </div>
                 <div class="row">
                     <mat-form-field>
                         <mat-label>First Name</mat-label>
                         <input matInput placeholder="Thomas" type="text" [formControl]="firstName" required>
-                        <mat-error *ngIf="firstName.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="firstName.invalid">{{getErrorMessage('firstName')}}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Last Name</mat-label>
                         <input matInput placeholder="Müller" type="text" [formControl]="lastName" required>
-                        <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="lastName.invalid">{{getErrorMessage('lastName')}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field>
                         <mat-label>Password</mat-label>
                         <input matInput placeholder="*****" type="password" [formControl]="userPassword" required>
-                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage('userPassword')}}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Confirm password</mat-label>
                         <input matInput placeholder="*****" type="password" [formControl]="confirmPassword" required>
-                        <mat-error *ngIf="confirmPassword.invalid">Passwords are not the same</mat-error>
+                        <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessage('confirmPassword')}}</mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            <span *ngIf="errorRegister" class="error"><b>User already exist!</b></span>
+            <span *ngIf="errorRegister && !confirmError" class="error"><b>Something went wrong!</b></span>
+            <span *ngIf="!errorRegister && confirmError" class="error"><b>Passwords are not equal</b></span>
             <mat-card-actions>
                 <button *ngIf="!registerInProgress" type="submit" mat-button>Create</button>
                 <mat-spinner *ngIf="registerInProgress" class="spinner"></mat-spinner>

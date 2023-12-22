@@ -22,8 +22,13 @@ export class DialogNewTaskComponent {
     private backendService: BackendService,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    ) { }
+  ) { }
 
+  /**
+    * error message for form field
+    * 
+    * @returns {string} - error message
+    */
   getErrorMessage(form) {
     switch (form) {
       case 'task':
@@ -36,24 +41,27 @@ export class DialogNewTaskComponent {
           return 'You must enter a name';
         }
         break;
-    
+
       default:
         break;
     }
-    
-    
-
     return ''
   }
 
+  /**
+   * save new task and push it in todo array
+   * 
+   */
   async saveTask() {
     try {
-      let resp:any = await this.backendService.addTask(this.task.value, this.name.value, this.data.currentChannelId);
-      console.log(resp);
+      let resp: any = await this.backendService.addTask(this.task.value, this.name.value, this.data.currentChannelId);
+      const lastAddedElement = resp[resp.length - 1];
+      this.backendService.todo.push(lastAddedElement);
+
+      this.dialogRef.close();
     } catch (error) {
       console.log('Error when create new Channel', error);
     }
-
-    
   }
+
 }

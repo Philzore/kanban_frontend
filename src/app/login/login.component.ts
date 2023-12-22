@@ -19,22 +19,43 @@ export class LoginComponent {
     private backendService: BackendService,
   ) { }
 
-  getErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'You must enter a value';
-    }
-    if (this.userPassword.hasError('required')) {
-      return 'You must enter a value';
-    }
+  /**
+   * error message for form field
+   * 
+   * @param form {string} - for switch case
+   * @returns {string} - error message
+   */
+  getErrorMessage(form) {
+    switch (form) {
+      case 'username':
+        if (this.username.hasError('required')) {
+          return 'You must enter a username';
+        }
+        break;
+      case 'userPassword':
+        if (this.userPassword.hasError('required')) {
+          return 'You must enter a password';
+        }
+        break;
 
+      default:
+        break;
+    }
     return ''
   }
 
+  /**
+   * navigate to register url
+   * 
+   */
   openRegister() {
     this.router.navigateByUrl('register');
   }
 
-
+  /**
+   * login the user and save token and name in localStorage
+   * 
+   */
   async login() {
     this.loginInProgress = true;
     try {
@@ -43,6 +64,7 @@ export class LoginComponent {
         this.errorLogin = true;
       } else {
         localStorage.setItem('token', resp['token']);
+        localStorage.setItem('user', resp['name'])
         console.log(resp);
         this.backendService.currentUser = resp.name;
         this.backendService.loadKanbanChannels();

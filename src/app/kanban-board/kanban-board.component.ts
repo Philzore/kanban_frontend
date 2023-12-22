@@ -26,6 +26,11 @@ export class KanbanBoardComponent implements OnInit {
     
   }
 
+  /**
+   * drag and drop system and move it to the new array
+   * 
+   * @param event 
+   */
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -44,9 +49,14 @@ export class KanbanBoardComponent implements OnInit {
     this.updateCategory(this.backendService.inProgress, 'in_progress');
     this.updateCategory(this.backendService.testing, 'testing');
     this.updateCategory(this.backendService.done, 'done');
-
   }
 
+  /**
+   * update the category in the arrays after they are moved
+   * 
+   * @param array {array} - which array to be updated
+   * @param category {string} - which category should be
+   */
   updateCategory(array, category) {
     for (let task of array) {
       if (task.category !== category) {
@@ -55,6 +65,11 @@ export class KanbanBoardComponent implements OnInit {
     }
   }
 
+  /**
+   * open dialog to create new task and give die current channel id
+   * after closed go back to the right route 
+   * 
+   */
   openDialogNewTask() {
     const currentChannelId = this.route.snapshot.paramMap.get('channelId');
     
@@ -65,5 +80,15 @@ export class KanbanBoardComponent implements OnInit {
         this.router.navigate([`/board/${currentChannelId}`]);
       });
     });
+  }
+
+  /**
+   * save the current categorys of the tasks
+   * 
+   */
+  async saveCurrentState() {
+    const currentChannelId = this.route.snapshot.paramMap.get('channelId');
+
+    let resp = await this.backendService.saveTaskStates(currentChannelId);
   }
 }

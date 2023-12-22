@@ -10,14 +10,14 @@
                     <mat-form-field>
                         <mat-label>User Name</mat-label>
                         <input matInput placeholder="pmoessl" type="text" [formControl]="username" required>
-                        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="username.invalid">{{getErrorMessage('username')}}</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field>
                         <mat-label>Password</mat-label>
                         <input matInput placeholder="*****" type="password" [formControl]="userPassword" required>
-                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="userPassword.invalid">{{getErrorMessage('userPassword')}}</mat-error>
                     </mat-form-field>
                 </div>
                 <span class="error" *ngIf="errorLogin"><b>Login failed! Try again</b></span>

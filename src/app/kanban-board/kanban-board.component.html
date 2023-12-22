@@ -1,11 +1,12 @@
-<main class="board-overview" cdkDropListGroup>
+<main *ngIf="backendService.currentActiveChannel != 0" class="board-overview" cdkDropListGroup>
     <div>
         <mat-card class="main-card">
             <mat-card-header>
                 <mat-card-title>To Do</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="backendService.todo" class="task-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList [cdkDropListData]="backendService.todo" class="task-list"
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.todo; let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -20,7 +21,8 @@
                 <mat-card-title>In Progress</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="backendService.inProgress" class="task-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList [cdkDropListData]="backendService.inProgress" class="task-list"
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.inProgress;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -36,7 +38,8 @@
                 <mat-card-title>Testing</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="backendService.testing" class="task-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList [cdkDropListData]="backendService.testing" class="task-list"
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.testing;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -51,7 +54,8 @@
                 <mat-card-title>Done</mat-card-title>
             </mat-card-header>
 
-            <div cdkDropList [cdkDropListData]="backendService.done" class="task-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList [cdkDropListData]="backendService.done" class="task-list"
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.done;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -62,7 +66,7 @@
     </div>
 
     <div class="fab-container">
-        <button mat-fab color="primary" (click)="backendService.saveTaskStates()">
+        <button mat-fab color="primary" (click)="saveCurrentState()">
             <mat-icon>save</mat-icon>
         </button>
         <button mat-fab color="primary" (click)="openDialogNewTask()">
@@ -71,3 +75,8 @@
     </div>
 </main>
 
+<main *ngIf="backendService.currentActiveChannel == 0">
+    <h1>Please create or open a kanban Channel<br>
+        Open the menu in the header on the left side
+    </h1>
+</main>

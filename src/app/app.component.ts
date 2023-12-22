@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     let channelId = localStorage.getItem('channel')
-    
+
     if (channelId) {
       this.openKanban(channelId);
     }
@@ -36,12 +36,14 @@ export class AppComponent implements OnInit {
   async openKanban(channelId) {
     localStorage.setItem('channel', channelId);
     this.router.navigate(['/board', channelId]);
+
     let resp: any = await this.backendService.getTasksFromSingleChannel(channelId);
 
     this.backendService.todo = [];
     this.backendService.inProgress = [];
     this.backendService.testing = [];
     this.backendService.done = [];
+
 
     for (let task of resp) {
       if (task.category == 'to_do') {
@@ -54,9 +56,7 @@ export class AppComponent implements OnInit {
         this.backendService.done.push(task);
       }
     }
-    console.log('Array Todo :', this.backendService.todo);
-
-    console.log('Response from Server', resp);
+    this.backendService.currentActiveChannel = channelId ;
   }
 
   openDialogNewKanban() {
@@ -77,9 +77,18 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/']);
     localStorage.clear();
     this.backendService.currentUser = '';
+    this.backendService.currentActiveChannel = 0 ;
   }
 
-  deleteChannel(channelId) {
+  async deleteChannel(channelId) {
+   
+    let resp = await this.backendService.deleteChannel(channelId) ;
 
+    this.backendService.kanbanChannels = resp ;
+
+    if (channelId == this.backendService.currentActiveChannel) {
+      this.router.navigateByUrl('/board');
+      this.backendService.currentActiveChannel = 0 ;
+    }
   }
 }
