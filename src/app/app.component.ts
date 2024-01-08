@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
   async openKanban(channelId) {
     localStorage.setItem('channel', channelId);
-    this.router.navigate(['/board', channelId]);
+    this.router.navigate(['/board/', channelId]);
 
     let resp: any = await this.backendService.getTasksFromSingleChannel(channelId);
 

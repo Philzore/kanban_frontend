@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -23,7 +23,6 @@ export class BackendService {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.loadKanbanChannels();
     this.currentUser = localStorage.getItem('user') ;
   }
 
@@ -54,7 +53,12 @@ export class BackendService {
       "username": username,
       "password": password
     };
-    return lastValueFrom(this.http.post(url, body));
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return lastValueFrom(this.http.post(url, body, { headers, withCredentials: false }));
   }
 
   /**
@@ -163,7 +167,7 @@ export class BackendService {
    * @returns response from server
    */
   deleteChannel(channelId) {
-    const url = environment.baseUrl + `/board/${channelId}` ;
+    const url = environment.baseUrl + `/board/${channelId}/` ;
 
     return lastValueFrom(this.http.delete(url));
   }

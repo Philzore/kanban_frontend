@@ -6,6 +6,7 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import { DialogNewTaskComponent } from './dialog-new-task/dialog-new-task.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { DialogNewKanbanComponent } from './dialog-new-kanban/dialog-new-kanban.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {path: '' , component: LoginComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

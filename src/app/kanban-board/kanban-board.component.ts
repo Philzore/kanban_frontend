@@ -23,7 +23,7 @@ export class KanbanBoardComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
+    this.backendService.loadKanbanChannels();
   }
 
   /**
