@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewTaskComponent } from '../dialog-new-task/dialog-new-task.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { BackendService } from '../services/backend-service';
   styleUrls: ['./kanban-board.component.scss']
 })
 export class KanbanBoardComponent implements OnInit {
+  @ViewChild('tooltip') tooltip:ElementRef ;
  
   constructor(
     public dialog:MatDialog,
@@ -49,6 +50,8 @@ export class KanbanBoardComponent implements OnInit {
     this.updateCategory(this.backendService.inProgress, 'in_progress');
     this.updateCategory(this.backendService.testing, 'testing');
     this.updateCategory(this.backendService.done, 'done');
+
+    
   }
 
   /**
@@ -90,5 +93,13 @@ export class KanbanBoardComponent implements OnInit {
     const currentChannelId = this.route.snapshot.paramMap.get('channelId');
 
     let resp = await this.backendService.saveTaskStates(currentChannelId);
+  }
+
+  editTask(task, index) {
+
+  }
+
+  deleteTask(task, index) {
+    
   }
 }

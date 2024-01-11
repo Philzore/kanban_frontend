@@ -64,7 +64,7 @@ export class LoginComponent {
         this.errorLogin = true;
       } else {
         localStorage.setItem('token', resp['token']);
-        localStorage.setItem('user', resp['name'])
+        localStorage.setItem('user', resp['name']);
         console.log(resp);
         this.backendService.currentUser = resp.name;
         this.backendService.loadKanbanChannels();

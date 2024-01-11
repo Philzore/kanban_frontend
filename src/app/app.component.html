@@ -9,7 +9,7 @@
     <button mat-icon-button class="example-icon favorite-icon" [class.red]="activateHeart" (click)="toggleHeart()">
         <mat-icon>favorite</mat-icon>
     </button>
-    <button *ngIf="backendService.checkTokenInStorage()" mat-icon-button class="example-icon favorite-icon" (click)="logout()">
+    <button *ngIf="backendService.checkTokenInStorage()" mat-icon-button class="example-icon favorite-icon" (click)="sidenav.toggle() ; logout()">
         <mat-icon>logout</mat-icon>
     </button>
 </mat-toolbar>
@@ -18,13 +18,13 @@
     <mat-sidenav  #sidenav mode="side" [(opened)]="opened">
         <div *ngIf="backendService.checkTokenInStorage()" class="sidenav-column">
             <p>Available Kanban´s</p>
-            <button mat-icon-button matTooltip="Basic" (click)="openDialogNewKanban()">
+            <button mat-icon-button matTooltip="Create new Kanban Channel" (click)="openDialogNewKanban()">
                 <mat-icon>add</mat-icon>
             </button>
             <div  *ngFor="let channel of backendService.kanbanChannels" class="single-channel">
                 <button  mat-button
                     (click)="openKanban(channel.id)">{{ channel.title }}</button>
-                <button mat-icon-button matTooltip="Basic" (click)="deleteChannel(channel.id)">
+                <button mat-icon-button matTooltip="Delete Channel" (click)="deleteChannel(channel.id)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
