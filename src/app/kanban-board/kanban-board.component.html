@@ -12,8 +12,8 @@
                     <span>from : {{ item.author }}</span>
                     <span>for : {{ item.assigned_to }}</span>
                     <div class="edit-task">
-                        <button mat-icon-button matTooltip="edit task" (click)="editTask(item, i)"><mat-icon>edit</mat-icon></button>
-                        <button mat-icon-button matTooltip="delete task" (click)="deleteTask(item, i)"><mat-icon>delete</mat-icon></button>
+                        <button mat-icon-button matTooltip="edit task" (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="delete task" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                     </div>
                 </div>
             </div>

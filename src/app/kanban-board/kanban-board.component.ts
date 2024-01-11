@@ -51,7 +51,7 @@ export class KanbanBoardComponent implements OnInit {
     this.updateCategory(this.backendService.testing, 'testing');
     this.updateCategory(this.backendService.done, 'done');
 
-    
+    console.log(this.backendService.todo);
   }
 
   /**
@@ -95,11 +95,11 @@ export class KanbanBoardComponent implements OnInit {
     let resp = await this.backendService.saveTaskStates(currentChannelId);
   }
 
-  editTask(task, index) {
+  editTask(task) {
 
   }
 
-  deleteTask(task, index) {
+  deleteTask(task) {
     
   }
 }
