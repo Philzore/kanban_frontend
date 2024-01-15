@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BackendService } from '../services/backend-service';
 
 @Component({
   selector: 'app-task-detail',
@@ -14,7 +15,7 @@ export class TaskDetailComponent {
   taskName = '' ;
   assignedName = '' ;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any) 
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private backendService: BackendService) 
   {
     console.log(this.data);
     this.taskName = this.data.title ;
@@ -41,6 +42,6 @@ export class TaskDetailComponent {
   }
 
   saveTask() {
-
+    this.backendService.editSingleTask(this.data.id, this.taskName, this.assignedName) ;
   }
 }

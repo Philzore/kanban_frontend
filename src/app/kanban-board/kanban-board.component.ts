@@ -110,6 +110,6 @@ export class KanbanBoardComponent implements OnInit {
   }
 
   deleteTask(task) {
-    
+    this.backendService.deleteSingleTask(task.id) ;
   }
 }

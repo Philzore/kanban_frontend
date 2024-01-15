@@ -171,4 +171,23 @@ export class BackendService {
 
     return lastValueFrom(this.http.delete(url));
   }
+
+
+  editSingleTask(taskID, taskName, taskAssigned) {
+    const url = environment.baseUrl + `/edit_task/${taskID}/` ;
+
+    const updateTask = {
+      "assigned_to": taskAssigned,
+      "title" : taskName,
+      // "category": ,
+    }
+
+    return lastValueFrom(this.http.put(url, updateTask));
+  }
+
+  deleteSingleTask(taskID) {
+    const url = environment.baseUrl + `/edit_task/${taskID}/` ;
+
+    return lastValueFrom(this.http.delete(url));
+  }
 }
