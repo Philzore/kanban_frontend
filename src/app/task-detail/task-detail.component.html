@@ -1,1 +1,21 @@
-<p>task-detail works!</p>
+<h1 mat-dialog-title>Edit Task</h1>
+<form (ngSubmit)="saveTask()">
+    <div mat-dialog-content>
+        <div>
+            <mat-form-field>
+                <mat-label>enter task name</mat-label>
+                <input matInput placeholder="call grandma" type="text" [formControl]="task" [(ngModel)]="taskName" required>
+                <mat-error *ngIf="task.invalid">{{getErrorMessage('task')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>enter assigned name</mat-label>
+                <input matInput placeholder="Enrico" type="text" [formControl]="name" [(ngModel)]="assignedName" required>
+                <mat-error *ngIf="name.invalid">{{getErrorMessage('name')}}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" mat-button>Save</button>
+        <button type="button" mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    </div>
+</form>

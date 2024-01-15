@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment.development';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BackendService } from '../services/backend-service';
+import { TaskDetailComponent } from '../task-detail/task-detail.component';
 
 @Component({
   selector: 'app-kanban-board',
@@ -96,7 +97,16 @@ export class KanbanBoardComponent implements OnInit {
   }
 
   editTask(task) {
+    const currentChannelId = this.route.snapshot.paramMap.get('channelId');
+    const taskID = task.id ;
 
+    this.router.navigate([`/board/${currentChannelId}/task/${taskID}`]).then(() => {
+      const dialogRef =  this.dialog.open(TaskDetailComponent, {data : task});
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigate([`/board/${currentChannelId}`]);
+      });
+    });
   }
 
   deleteTask(task) {

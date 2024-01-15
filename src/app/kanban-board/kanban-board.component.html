@@ -12,8 +12,10 @@
                     <span>from : {{ item.author }}</span>
                     <span>for : {{ item.assigned_to }}</span>
                     <div class="edit-task">
-                        <button mat-icon-button matTooltip="edit task" (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
-                        <button mat-icon-button matTooltip="delete task" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
+                        <button mat-icon-button matTooltip="edit task"
+                            (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="delete task"
+                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                     </div>
                 </div>
             </div>
@@ -32,9 +34,14 @@
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
                     <span>for : {{ item.assigned_to }}</span>
+                    <div class="edit-task">
+                        <button mat-icon-button matTooltip="edit task"
+                            (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="delete task"
+                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
+                    </div>
                 </div>
             </div>
-
         </mat-card>
     </div>
     <div>
@@ -49,6 +56,12 @@
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
                     <span>for : {{ item.assigned_to }}</span>
+                    <div class="edit-task">
+                        <button mat-icon-button matTooltip="edit task"
+                            (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="delete task"
+                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
+                    </div>
                 </div>
             </div>
         </mat-card>
@@ -58,13 +71,18 @@
             <mat-card-header>
                 <mat-card-title>Done</mat-card-title>
             </mat-card-header>
-
             <div cdkDropList [cdkDropListData]="backendService.done" class="task-list"
                 (cdkDropListDropped)="drop($event) ; tooltip.show()">
                 <div *ngFor="let item of backendService.done;let i = index ;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
                     <span>for : {{ item.assigned_to }}</span>
+                    <div class="edit-task">
+                        <button mat-icon-button matTooltip="edit task"
+                            (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button matTooltip="delete task"
+                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
+                    </div>
                 </div>
             </div>
         </mat-card>

@@ -9,17 +9,15 @@ import { DialogNewKanbanComponent } from './dialog-new-kanban/dialog-new-kanban.
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
-  {path: '' , component: LoginComponent},
-  {path: 'register' , component: RegisterComponent},
-  {path: 'board' , component: KanbanBoardComponent, children : [{path : 'create_channel', component: DialogNewKanbanComponent}]},
-  {path: 'board/:channelId' , component: KanbanBoardComponent , children : [{path : 'add_task', component: DialogNewTaskComponent}]},
-  {path: 'board/:channelId/task/:taskId' , component: TaskDetailComponent},
-
+  { path: '', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'board', component: KanbanBoardComponent, children: [{ path: 'create_channel', component: DialogNewKanbanComponent }] },
+  { path: 'board/:channelId', component: KanbanBoardComponent, children: [{ path: 'add_task', component: DialogNewTaskComponent }, { path: 'task/:taskId', component: TaskDetailComponent }] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
