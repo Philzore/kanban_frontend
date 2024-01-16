@@ -9,7 +9,7 @@
     <button mat-icon-button class="example-icon favorite-icon" [class.red]="activateHeart" (click)="toggleHeart()">
         <mat-icon>favorite</mat-icon>
     </button>
-    <button *ngIf="backendService.checkTokenInStorage()" mat-icon-button class="example-icon favorite-icon" (click)="sidenav.toggle() ; logout()">
+    <button *ngIf="backendService.checkTokenInStorage()" mat-icon-button class="example-icon favorite-icon" (click)="sidenav.close() ; logout()">
         <mat-icon>logout</mat-icon>
     </button>
 </mat-toolbar>
