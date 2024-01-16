@@ -4,7 +4,7 @@
         <div>
             <mat-form-field>
                 <mat-label>Enter Name</mat-label>
-                <input matInput placeholder="Eric´s Kanban" type="text" [formControl]="kanban" required>
+                <input matInput placeholder="Eric´s Kanban" type="text" [formControl]="kanban" required >
                 <mat-error *ngIf="kanban.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </div>

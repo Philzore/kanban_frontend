@@ -11,8 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dialog-new-task.component.scss']
 })
 export class DialogNewTaskComponent {
-  task = new FormControl('', [Validators.required]);
-  name = new FormControl('', [Validators.required]);
+  task = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
 
   testArray = [];
@@ -34,11 +34,15 @@ export class DialogNewTaskComponent {
       case 'task':
         if (this.task.hasError('required')) {
           return 'You must enter a task';
+        } else if (this.task.hasError('minlength')) {
+          return 'You need three letters';
         }
         break;
       case 'name':
         if (this.name.hasError('required')) {
           return 'You must enter a name';
+        } else if (this.name.hasError('minlength')) {
+          return 'You need three letters';
         }
         break;
 
@@ -53,15 +57,18 @@ export class DialogNewTaskComponent {
    * 
    */
   async saveTask() {
-    try {
-      let resp: any = await this.backendService.addTask(this.task.value, this.name.value, this.data.currentChannelId);
-      const lastAddedElement = resp[resp.length - 1];
-      this.backendService.todo.push(lastAddedElement);
+    if (!this.task.errors && !this.name.errors) {
+      try {
+        let resp: any = await this.backendService.addTask(this.task.value, this.name.value, this.data.currentChannelId);
+        const lastAddedElement = resp[resp.length - 1];
+        this.backendService.todo.push(lastAddedElement);
 
-      this.dialogRef.close();
-    } catch (error) {
-      console.log('Error when create new Channel', error);
+        this.dialogRef.close();
+      } catch (error) {
+        console.log('Error when create new Channel', error);
+      }
     }
+
   }
 
 }

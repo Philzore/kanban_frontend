@@ -6,7 +6,7 @@
             </mat-card-header>
 
             <div cdkDropList [cdkDropListData]="backendService.todo" class="task-list"
-                (cdkDropListDropped)="drop($event) ; tooltip.show()">
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.todo; let i = index ; let track item " class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -15,10 +15,11 @@
                         <button mat-icon-button matTooltip="edit task"
                             (click)="editTask(item)"><mat-icon>edit</mat-icon></button>
                         <button mat-icon-button matTooltip="delete task"
-                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
+                            (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>  
                     </div>
                 </div>
             </div>
+             
         </mat-card>
     </div>
     <div>
@@ -28,7 +29,7 @@
             </mat-card-header>
 
             <div cdkDropList [cdkDropListData]="backendService.inProgress" class="task-list"
-                (cdkDropListDropped)="drop($event) ; tooltip.show()">
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.inProgress;let i = index ;let track item" class="task-box"
                     cdkDrag>
                     <span><b>{{item.title}}</b></span>
@@ -51,7 +52,7 @@
             </mat-card-header>
 
             <div cdkDropList [cdkDropListData]="backendService.testing" class="task-list"
-                (cdkDropListDropped)="drop($event) ; tooltip.show()">
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.testing;let i = index ;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -72,7 +73,7 @@
                 <mat-card-title>Done</mat-card-title>
             </mat-card-header>
             <div cdkDropList [cdkDropListData]="backendService.done" class="task-list"
-                (cdkDropListDropped)="drop($event) ; tooltip.show()">
+                (cdkDropListDropped)="drop($event)">
                 <div *ngFor="let item of backendService.done;let i = index ;let track item" class="task-box" cdkDrag>
                     <span><b>{{item.title}}</b></span>
                     <span>from : {{ item.author }}</span>
@@ -89,10 +90,6 @@
     </div>
 
     <div class="fab-container">
-        <button mat-fab color="primary" (click)="saveCurrentState()" #tooltip="matTooltip"
-            matTooltip="Please save your changes here, before you leave" matTooltipPosition="left">
-            <mat-icon>save</mat-icon>
-        </button>
         <button mat-fab color="primary" (click)="openDialogNewTask()">
             <mat-icon>add</mat-icon>
         </button>

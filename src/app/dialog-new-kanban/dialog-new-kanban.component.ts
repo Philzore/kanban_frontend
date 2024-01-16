@@ -10,8 +10,8 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-new-kanban.component.scss']
 })
 export class DialogNewKanbanComponent {
-  kanban = new FormControl('', [Validators.required]);
-  
+  kanban = new FormControl('', [Validators.required, Validators.minLength(3)]);
+
   constructor(
     private backendService: BackendService,
     private dialogRef: MatDialogRef<DialogNewKanbanComponent>,
@@ -25,8 +25,13 @@ export class DialogNewKanbanComponent {
   getErrorMessage() {
     if (this.kanban.hasError('required')) {
       return 'You must enter a value';
+    } else if (this.kanban.hasError('minlength')) {
+      return 'You need three letters';
+    } else {
+      return ''
     }
-    return ''
+
+
   }
 
   /**
@@ -34,13 +39,14 @@ export class DialogNewKanbanComponent {
    * 
    */
   async saveKanban() {
-    try {
-      let resp:any = await this.backendService.addKanbanChannel(this.kanban.value);
-      this.backendService.kanbanChannels = resp;
-      this.dialogRef.close();
-    } catch (error) {
-      console.log('Error when create new Channel', error);
+    if (!this.kanban.errors) {
+      try {
+        let resp: any = await this.backendService.addKanbanChannel(this.kanban.value);
+        this.backendService.kanbanChannels = resp;
+        this.dialogRef.close();
+      } catch (error) {
+        console.log('Error when create new Channel', error);
+      }
     }
-  
   }
 }

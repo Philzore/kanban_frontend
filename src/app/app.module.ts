@@ -26,6 +26,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorServiceService } from './services/auth-interceptor.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from './error-snackbar/error-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     KanbanBoardComponent,
     DialogNewTaskComponent,
     DialogNewKanbanComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    ErrorSnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatInputModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

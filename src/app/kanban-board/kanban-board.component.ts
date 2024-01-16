@@ -8,6 +8,9 @@ import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BackendService } from '../services/backend-service';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from '../error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'app-kanban-board',
@@ -16,18 +19,28 @@ import { TaskDetailComponent } from '../task-detail/task-detail.component';
 })
 export class KanbanBoardComponent implements OnInit {
   @ViewChild('tooltip') tooltip:ElementRef ;
+
+  durationInSeconds = 3;
+
  
   constructor(
     public dialog:MatDialog,
     public router: Router,
     private route:ActivatedRoute,
     public backendService: BackendService,
+    private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
     this.backendService.loadKanbanChannels();
   }
 
+  openSnackBar() {
+    this._snackBar.openFromComponent(ErrorSnackbarComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  
   /**
    * drag and drop system and move it to the new array
    * 
@@ -52,7 +65,7 @@ export class KanbanBoardComponent implements OnInit {
     this.updateCategory(this.backendService.testing, 'testing');
     this.updateCategory(this.backendService.done, 'done');
 
-    console.log(this.backendService.todo);
+    this.saveCurrentState() ;
   }
 
   /**
@@ -109,7 +122,48 @@ export class KanbanBoardComponent implements OnInit {
     });
   }
 
-  deleteTask(task) {
-    this.backendService.deleteSingleTask(task.id) ;
+  async deleteTask(task) {
+    
+    let resp = await this.backendService.deleteSingleTask(task.id) ;
+
+    if (resp['success'] == true) {
+      this.findTaskArray(task)
+      this.openSnackBar() ;
+    } else {
+
+    }
+  }
+
+  findTaskArray(task) {
+    switch (task.category) {
+      case 'to_do':
+        this.backendService.todo = this.updateTaskArray(this.backendService.todo, task.id) ;
+        break;
+      case 'in_progress':
+        this.backendService.inProgress = this.updateTaskArray(this.backendService.inProgress, task.id) ;
+        break;
+      case 'testing':
+        this.backendService.testing = this.updateTaskArray(this.backendService.testing, task.id) ;
+        break;
+      case 'done':
+        this.backendService.done = this.updateTaskArray(this.backendService.done, task.id) ;
+        break;
+      default:
+        break;
+    }
+    
+  }
+
+  updateTaskArray(arrayToUpdate, taskID) {
+    const idToDelete = taskID;
+
+    for (let i = 0; i < arrayToUpdate.length; i++) {
+      if (arrayToUpdate[i].id === idToDelete) {
+        // löschen 
+        arrayToUpdate.splice(i,1) ;
+      
+        return arrayToUpdate; // Schleife beenden, da die Aufgabe gefunden und aktualisiert wurde
+      }
+    }
   }
 }

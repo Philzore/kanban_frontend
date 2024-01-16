@@ -15,7 +15,9 @@
         </div>
     </div>
     <div mat-dialog-actions>
-        <button type="submit" mat-button>Save</button>
+        <button *ngIf="!savingInProgress" type="submit" mat-button>Save</button>
+        <mat-spinner *ngIf="savingInProgress" class="spinner"></mat-spinner>
         <button type="button" mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
     </div>
+    <span *ngIf="savingError" class="error error-position"><b>an error happen´s, try again</b></span>
 </form>
