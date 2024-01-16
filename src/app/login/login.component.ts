@@ -65,13 +65,13 @@ export class LoginComponent {
       } else {
         localStorage.setItem('token', resp['token']);
         localStorage.setItem('user', resp['name']);
-        console.log(resp);
+        
         this.backendService.currentUser = resp.name;
         this.backendService.loadKanbanChannels();
         this.router.navigateByUrl('/board');
       }
     } catch (err) {
-      console.log('error :', err);
+      
     }
     this.loginInProgress = false;
   }

@@ -128,9 +128,8 @@ export class KanbanBoardComponent implements OnInit {
 
     if (resp['success'] == true) {
       this.findTaskArray(task)
-      this.openSnackBar() ;
     } else {
-
+      this.openSnackBar() ;
     }
   }
 
